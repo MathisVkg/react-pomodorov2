@@ -24,7 +24,7 @@ function App() {
     <div className="container">
       <h1>Pomodoro</h1>
       <small>Be productive the right way.</small>
-      { pomodoro == 0 ?  
+      { pomodoro === 0 ?  
         <SetPomodoro/> : 
         <>
           <ul className="labes">

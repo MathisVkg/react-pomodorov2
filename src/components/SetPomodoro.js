@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { SettingsContext } from '../context/SettingsContext';
 import Button from './Button';
 
 const SetPomodoro = () => {
+
     const [newTimer, setNewTimer] = useState({
-        work: 0.3,
-        short: 0.2,
+        work: 3,
+        short: 2,
         long: 1,
-        active: 'work'
+        active: 'work',
     })
+    const { updateExecute } = useContext(SettingsContext);
 
     const handleChange = input => {
         const { name, value } = input.target;
@@ -30,21 +33,26 @@ const SetPomodoro = () => {
                     long: parseInt(value)
                 })
                 break;
+            default:
+                break;
         }
-        console.log(newTimer);
     }
 
 
-    const handleSubmit = () => {};
+    const handleSubmit = e => {
+        e.preventDefault();
+        updateExecute(newTimer);
+    };
+
     return (
         <div className="formContainer">
             <form noValidate>
-                <idv className="inputWrapper">
-                    <input className="input" name="work" onChange={ handleChange } value={newTimer.work}></input>
-                    <input className="input" name="shortBreak" onChange={ handleChange } value={newTimer.short}></input>
-                    <input className="input" name="longBreak" onChange={ handleChange } value={newTimer.long}></input>
-                </idv>
-                <button title="setTimer" _callback={ handleSubmit }></button>
+                <div className="inputWrapper">
+                    <input className="input" name="work" onChange={ handleChange } value={newTimer.work} />
+                    <input className="input" name="shortBreak" onChange={ handleChange } value={newTimer.short} />
+                    <input className="input" name="longBreak" onChange={ handleChange } value={newTimer.long} />
+                </div>
+                <Button title="Set Timer" _callback={ handleSubmit } />
             </form>
         </div>
     )
